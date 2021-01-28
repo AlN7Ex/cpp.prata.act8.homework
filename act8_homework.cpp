@@ -161,3 +161,39 @@ void show(const std::string & s2)
 {
 	std::cout << s2 << std::endl;
 }
+
+// Task 5 - Напишите шаблонную функцию max5(), которая принимает в качестве аргумента массив из
+//			пяти элементов типа Т и возвращает наибольший элемент в массиве. (Поскольку размер
+//			массива фиксирован, его можно жестко закодировать в цикле, а не передавать в виде
+//			аргумента.) Протестируйте функцию с использованием массива из пяти значений int и
+//			массива из пяти значений double
+
+#include <iostream>
+
+constexpr int Arr_size = 5;
+
+template <typename anytype>
+anytype max5(anytype * Arr, size_t Arr_size);
+
+int main(void)
+{
+	using namespace std;
+	int type_i[Arr_size] {0, 1, 32, 3, 5};
+	double type_d[Arr_size] {1.2, 2.3, 0.2, 0.7, 3.1};
+
+	cout << "Max value of int array: " << max5(type_i, Arr_size) << endl;
+	cout << "Max value of double array: " << max5(type_d, Arr_size) << endl;
+
+	return 0;
+}
+
+template <typename anytype>
+anytype max5(anytype * Arr, size_t Arr_size)
+{
+	anytype temp = Arr[0];
+
+	for (size_t index = 1; index < Arr_size; ++index)
+		temp = temp < Arr[index] ? Arr[index] : temp;
+
+	return temp;
+}
